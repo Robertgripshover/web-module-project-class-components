@@ -1,32 +1,41 @@
 import React from 'react'
 
-export default class Form extends React.Component {
 
-  constructor(){
+class Form extends React.Component{
+
+  constructor() {
     super()
     this.state = {
-      item: 'somthing'
+      input: ''
     }
   }
 
-  handleChanges = e => {
-    e.preventDefault()
-    this.setState({...this.state, todo: e.target.value})
-  }
 
-  submitForm = e => {
-    e.preventDefault()
-    this.props.addTodo(e, this.state.todo)
-    this.setState({...this.state, todo: ''})
+  handleSubmit = (event)  => {
+    event.preventDefault()
+    this.props.handleAdd(this.state.input)
+  }//now each time I hit submit it will make a new item, 
+  // I am able to accesss 'handleAdd' because i am passing it in through props 
+  //on the App.js pagge
+
+
+  handleChange = (e) => {
+    this.setState({
+      ...this.state, 
+      input: e.target.value
+    })
   }
 
   render() {
     return (
-      <form onSubmit={this.submitForm}>
-        <input type='text' name='todo' value={this.state.todo} onChange={this.handleChanges} />
+      <form>
+        <input onChange={handleChange}/>
+        <button onClick={this.handleSubmit}>Add</button>
+
       </form>
     )
   }
 }
 
+export default Form
 
